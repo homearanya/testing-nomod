@@ -3,7 +3,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware')
 module.exports = {
   // for avoiding CORS while developing Netlify Functions locally
   // read more: https://www.gatsbyjs.org/docs/api-proxy/#advanced-proxying
-  developMiddleware: app => {
+  developMiddleware: (app) => {
     app.use(
       '/.netlify/functions/',
       createProxyMiddleware({
@@ -19,7 +19,7 @@ module.exports = {
     description: 'A better banking experience for your business',
     keywords:
       'stripe iphone, stripe android, stripe ios, stripe mobile, stripe payments, stripe charge, stripe app, stripe mobile payments, stripe account, stripe dashboard, stripe, charge, payment, payment app, android payments, credit card, iphone credit card, android credit card, credit card app, credit card pos, pos, point of sale, point of sale app, card payments, card machine, card terminal, card processing, virtual terminal, visa, mastercard, multi-currency, IBANs, payment cards, nomod',
-    siteUrl: 'https://nomod.com', // important for robots-txt and sitemap
+    siteUrl: 'https://testing-nomod.netlify.app/', // important for robots-txt and sitemap
     twitterUsername: '@NomodHQ',
     author: `@NomodHQ`,
     subscribeMailjetendpoint: '/.netlify/functions/subscribeMailjet',
