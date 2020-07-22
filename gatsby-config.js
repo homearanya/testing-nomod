@@ -19,7 +19,7 @@ module.exports = {
     description: 'A better banking experience for your business',
     keywords:
       'stripe iphone, stripe android, stripe ios, stripe mobile, stripe payments, stripe charge, stripe app, stripe mobile payments, stripe account, stripe dashboard, stripe, charge, payment, payment app, android payments, credit card, iphone credit card, android credit card, credit card app, credit card pos, pos, point of sale, point of sale app, card payments, card machine, card terminal, card processing, virtual terminal, visa, mastercard, multi-currency, IBANs, payment cards, nomod',
-    siteUrl: 'https://testing-nomod.netlify.app/', // important for robots-txt and sitemap
+    siteUrl: 'https://testing-nomod.netlify.app', // important for robots-txt and sitemap
     twitterUsername: '@NomodHQ',
     author: `@NomodHQ`,
     subscribeMailjetendpoint: '/.netlify/functions/subscribeMailjet',

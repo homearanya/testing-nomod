@@ -62,12 +62,6 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
   const siteTitle = defaultTitle || site.siteMetadata.title
   const metaKeywords = site.siteMetadata.keywords
 
-  const splittedPath = path.split(`${locales[index].locale}`)
-  const unlocalisedPath = splittedPath[splittedPath.length - 1]
-
-  const unlocalisedPageUrl = path
-    ? `${site.siteMetadata.siteUrl}${unlocalisedPath}`
-    : `${site.siteMetadata.siteUrl}`
   const pageUrl = path
     ? `${site.siteMetadata.siteUrl}${path}`
     : `${site.siteMetadata.siteUrl}`
@@ -113,7 +107,7 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
         },
         {
           property: `og:image`,
-          content: `/img/og-image.png`,
+          content: `${site.siteMetadata.siteUrl}/img/og-image.png`,
         },
         {
           name: `twitter:card`,
@@ -133,7 +127,7 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
         },
         {
           name: `twitter:image`,
-          content: `/img/og-image.png`,
+          content: `${site.siteMetadata.siteUrl}/img/og-image.png`,
         },
         {
           name: `twitter:image:alt`,
