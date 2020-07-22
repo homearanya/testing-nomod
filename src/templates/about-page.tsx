@@ -12,6 +12,7 @@ import media from '../styles/media'
 
 interface AboutPageProps extends PageProps {
   readonly data: PageQueryData
+  readonly location: Location
 }
 
 const AboutPage = ({
@@ -20,11 +21,15 @@ const AboutPage = ({
       frontmatter: { title, description, header, downloadSection },
     },
   },
-  path,
   navigate,
+  location,
 }: AboutPageProps) => (
-  <Layout className="about-page" pageProps={{ path, navigate }} noFooterTop>
-    <SEO title={title} description={description} path={path} />
+  <Layout
+    className="about-page"
+    pageProps={{ path: location.pathname, navigate }}
+    noFooterTop
+  >
+    <SEO title={title} description={description} path={location.pathname} />
     <StyledHeroSection data={header} stripeBadge={false} borderBottom />
     <DownloadSection data={downloadSection} />
   </Layout>

@@ -18,6 +18,7 @@ import media from '../styles/media'
 
 interface LunatapTransitionPageProps extends PageProps {
   readonly data: PageQueryData
+  readonly location: Location
 }
 
 const LunatapTransitionPage = ({
@@ -31,8 +32,8 @@ const LunatapTransitionPage = ({
       },
     },
   },
-  path,
   navigate,
+  location,
 }: LunatapTransitionPageProps) => {
   const isSm = useMedia({ maxWidth: $breakpoints.sm * (16 - 0.001) })
   const isMd = useMedia({ maxWidth: $breakpoints.md * (16 - 0.001) })
@@ -57,8 +58,11 @@ const LunatapTransitionPage = ({
   }
 
   return (
-    <Layout className="lunatap" pageProps={{ path, navigate }}>
-      <SEO title={title} description={description} path={path} />
+    <Layout
+      className="lunatap"
+      pageProps={{ path: location.pathname, navigate }}
+    >
+      <SEO title={title} description={description} path={location.pathname} />
       <StyledDownloadSection background={$white} data={header} />
       <ImageTextBlockSection
         textPosition={isSm ? 'left' : 'right'}

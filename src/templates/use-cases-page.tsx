@@ -17,6 +17,7 @@ import DownloadSection, {
 
 interface UseCasesPageProps extends PageProps {
   readonly data: PageQueryData
+  readonly location: Location
 }
 
 const UseCasesPage = ({
@@ -31,11 +32,15 @@ const UseCasesPage = ({
       },
     },
   },
-  path,
   navigate,
+  location,
 }: UseCasesPageProps) => (
-  <Layout className="use-cases-page" pageProps={{ path, navigate }} noFooterTop>
-    <SEO title={title} description={description} path={path} />
+  <Layout
+    className="use-cases-page"
+    pageProps={{ path: location.pathname, navigate }}
+    noFooterTop
+  >
+    <SEO title={title} description={description} path={location.pathname} />
     <StyledUseCasesHeroSection data={header} />
     <TestimonialsSection2 data={testimonialsSection} />
     <StyledDownloadSection data={downloadSection} borderTop />

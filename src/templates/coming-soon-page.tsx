@@ -21,6 +21,7 @@ import videoWebm from '../videos/hero-home.webm'
 
 interface ComingSoonPageProps extends PageProps {
   readonly data: PageQueryData
+  readonly location: Location
 }
 
 const ComingSoonPage = ({
@@ -39,8 +40,8 @@ const ComingSoonPage = ({
       },
     },
   },
-  path,
   navigate,
+  location,
 }: ComingSoonPageProps) => {
   // for coming soon page
   const [showSignUp, setshowSignUp] = useState(false)
@@ -49,7 +50,7 @@ const ComingSoonPage = ({
   const handlerSetFocus = () => setSetFocus(true)
   const handlerSetUnfocus = () => setSetFocus(false)
 
-  const handlerShowSignUp = element => {
+  const handlerShowSignUp = (element) => {
     let topOffset = 900
     if (element) {
       topOffset = element.getBoundingClientRect().top
@@ -68,12 +69,12 @@ const ComingSoonPage = ({
   return (
     <StyledLayout
       className="coming-soon-page"
-      pageProps={{ path, navigate }}
+      pageProps={{ path: location.pathname, navigate }}
       comingSoon
       showSignUp={showSignUp}
       handlerSetFocus={handlerSetFocus}
     >
-      <SEO title={title} description={description} path={path} />
+      <SEO title={title} description={description} path={location.pathname} />
       <StyledHeroSection
         data={header}
         background="transparent"

@@ -25,6 +25,8 @@ import videoWebm from '../videos/hero-home.webm'
 
 interface HomePageProps extends PageProps {
   readonly data: PageQueryData
+  path: string
+  location: Location
 }
 
 const HomePage = ({
@@ -41,13 +43,17 @@ const HomePage = ({
       },
     },
   },
-  path,
   navigate,
+  location,
 }: HomePageProps) => {
   const isSmallDesktop = useMedia({ maxWidth: $breakpoints.lg * 16 - 1 })
   return (
-    <Layout className="home-page" pageProps={{ path, navigate }} noFooterTop>
-      <SEO title={title} description={description} path={path} />
+    <Layout
+      className="home-page"
+      pageProps={{ path: location.pathname, navigate }}
+      noFooterTop
+    >
+      <SEO title={title} description={description} path={location.pathname} />
       <StyledHeroSection
         data={header}
         background="transparent"

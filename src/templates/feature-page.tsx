@@ -14,6 +14,7 @@ import DownloadSection, {
 
 interface FeauturePageProps extends PageProps {
   readonly data: PageQueryData
+  readonly location: Location
 }
 
 const FeauturePage = ({
@@ -28,11 +29,15 @@ const FeauturePage = ({
       },
     },
   },
-  path,
   navigate,
+  location,
 }: FeauturePageProps) => (
-  <Layout className="feature-page" pageProps={{ path, navigate }} noFooterTop>
-    <SEO title={title} description={description} path={path} />
+  <Layout
+    className="feature-page"
+    pageProps={{ path: location.pathname, navigate }}
+    noFooterTop
+  >
+    <SEO title={title} description={description} path={location.pathname} />
     <StyledHeroSection data={header} borderBottom stripeBadge={false} />
     <StyledFeaturesSection
       data={featuresSection}

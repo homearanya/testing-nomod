@@ -21,17 +21,15 @@ const NotFoundPage = ({
       frontmatter: { title, description, textBlock },
     },
   },
-  path,
   navigate,
   location,
-  ...rest
 }: NotFoundPageProps) => {
   return (
     <Layout
       className="notfound-page"
       pageProps={{ path: location.pathname, navigate }}
     >
-      <SEO title={title} description={description} path={path} />
+      <SEO title={title} description={description} path={location.pathname} />
       <CustomContainer>
         <Wrapper>
           <StyledTextBlock data={textBlock} />

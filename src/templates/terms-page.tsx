@@ -11,6 +11,7 @@ import media from '../styles/media'
 
 interface TermsPageProps extends PageProps {
   readonly data: PageQueryData
+  readonly location: Location
 }
 const TermsPage = ({
   data: {
@@ -19,11 +20,14 @@ const TermsPage = ({
       html,
     },
   },
-  path,
   navigate,
+  location,
 }: TermsPageProps) => (
-  <Layout className="terms-page" pageProps={{ path, navigate }}>
-    <SEO title={title} description={description} path={path} />
+  <Layout
+    className="terms-page"
+    pageProps={{ path: location.pathname, navigate }}
+  >
+    <SEO title={title} description={description} path={location.pathname} />
     <StyledContainer>
       <Menu />
       <Section>

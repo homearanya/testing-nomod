@@ -17,6 +17,7 @@ import media from '../styles/media'
 
 interface PricingPageProps extends PageProps {
   readonly data: PageQueryData
+  readonly location: Location
 }
 
 const PricingPage = ({
@@ -32,11 +33,15 @@ const PricingPage = ({
       },
     },
   },
-  path,
   navigate,
+  location,
 }: PricingPageProps) => (
-  <Layout className="pricing-page" pageProps={{ path, navigate }} noFooterTop>
-    <SEO title={title} description={description} path={path} />
+  <Layout
+    className="pricing-page"
+    pageProps={{ path: location.pathname, navigate }}
+    noFooterTop
+  >
+    <SEO title={title} description={description} path={location.pathname} />
     <StyledHeroSection
       data={header}
       stripeBadge={false}

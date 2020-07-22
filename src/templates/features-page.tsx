@@ -16,6 +16,7 @@ import media from '../styles/media'
 
 interface FeaturesPageProps extends PageProps {
   readonly data: PageQueryData
+  readonly location: Location
 }
 
 const FeaturesPage = ({
@@ -30,11 +31,15 @@ const FeaturesPage = ({
       },
     },
   },
-  path,
   navigate,
+  location,
 }: FeaturesPageProps) => (
-  <Layout className="features-page" pageProps={{ path, navigate }} noFooterTop>
-    <SEO title={title} description={description} path={path} />
+  <Layout
+    className="features-page"
+    pageProps={{ path: location.pathname, navigate }}
+    noFooterTop
+  >
+    <SEO title={title} description={description} path={location.pathname} />
     <StyledHeroSection
       data={header}
       borderBottom

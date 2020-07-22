@@ -15,6 +15,7 @@ import DownloadSection, {
 
 interface UseCasePageProps extends PageProps {
   readonly data: PageQueryData
+  readonly location: Location
 }
 
 const UseCasePage = ({
@@ -29,11 +30,15 @@ const UseCasePage = ({
       },
     },
   },
-  path,
   navigate,
+  location,
 }: UseCasePageProps) => (
-  <Layout className="use-case-page" pageProps={{ path, navigate }} noFooterTop>
-    <SEO title={title} description={description} path={path} />
+  <Layout
+    className="use-case-page"
+    pageProps={{ path: location.pathname, navigate }}
+    noFooterTop
+  >
+    <SEO title={title} description={description} path={location.pathname} />
     <StyledHeroSection data={header} stripeBadge={false} />
     <StyledFeaturesSection
       data={featuresSection}
