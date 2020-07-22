@@ -1,0 +1,482 @@
+[
+  {
+    "locale": "en-US",
+    "default": true,
+    "available": true,
+    "country": "United States",
+    "flag": "../images/flags/us-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-GB",
+    "default": false,
+    "available": true,
+    "country": "United Kingdom",
+    "flag": "../images/flags/uk-flag.inline.svg",
+    "dateFormat": "DD.MM.YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-AE",
+    "default": false,
+    "available": false,
+    "country": "United Arab Emirates",
+    "flag": "../images/flags/ae-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Coming soon to the UAE"
+  },
+  {
+    "locale": "en-AT",
+    "default": false,
+    "available": true,
+    "country": "Austria",
+    "flag": "../images/flags/at-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-AU",
+    "default": false,
+    "available": true,
+    "country": "Australia",
+    "flag": "../images/flags/au-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-BE",
+    "default": false,
+    "available": true,
+    "country": "Belgium",
+    "flag": "../images/flags/be-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-BG",
+    "default": false,
+    "available": true,
+    "country": "Bulgaria",
+    "flag": "../images/flags/bg-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-BH",
+    "default": false,
+    "available": false,
+    "country": "Bahrain",
+    "flag": "../images/flags/bh-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Coming soon to Bahrain"
+  },
+  {
+    "locale": "en-CA",
+    "default": false,
+    "available": true,
+    "country": "Canada",
+    "flag": "../images/flags/ca-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-CH",
+    "default": false,
+    "available": true,
+    "country": "Switzerland",
+    "flag": "../images/flags/ch-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-CY",
+    "default": false,
+    "available": true,
+    "country": "Cyprus",
+    "flag": "../images/flags/cy-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-CZ",
+    "default": false,
+    "available": true,
+    "country": "Czech Republic",
+    "flag": "../images/flags/cz-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-DE",
+    "default": false,
+    "available": true,
+    "country": "Germany",
+    "flag": "../images/flags/de-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-DK",
+    "default": false,
+    "available": true,
+    "country": "Denmark",
+    "flag": "../images/flags/dk-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-EE",
+    "default": false,
+    "available": true,
+    "country": "Estonia",
+    "flag": "../images/flags/ee-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-EG",
+    "default": false,
+    "available": false,
+    "country": "Egypt",
+    "flag": "../images/flags/eg-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Coming soon to Egypt"
+  },
+  {
+    "locale": "en-ES",
+    "default": false,
+    "available": true,
+    "country": "Spain",
+    "flag": "../images/flags/es-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-FI",
+    "default": false,
+    "available": true,
+    "country": "Finland",
+    "flag": "../images/flags/fi-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-FR",
+    "default": false,
+    "available": true,
+    "country": "France",
+    "flag": "../images/flags/fr-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-GR",
+    "default": false,
+    "available": true,
+    "country": "Greece",
+    "flag": "../images/flags/gr-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-HK",
+    "default": false,
+    "available": true,
+    "country": "Hong Kong",
+    "flag": "../images/flags/hk-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-HU",
+    "default": false,
+    "available": true,
+    "country": "Hungary",
+    "flag": "../images/flags/hu-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-IE",
+    "default": false,
+    "available": true,
+    "country": "Ireland",
+    "flag": "../images/flags/ie-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-IT",
+    "default": false,
+    "available": true,
+    "country": "Italy",
+    "flag": "../images/flags/it-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-JP",
+    "default": false,
+    "available": true,
+    "country": "Japan",
+    "flag": "../images/flags/jp-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-KW",
+    "default": false,
+    "available": false,
+    "country": "Kuwait",
+    "flag": "../images/flags/kw-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Coming soon to Kuwait"
+  },
+  {
+    "locale": "en-LT",
+    "default": false,
+    "available": true,
+    "country": "Lithuania",
+    "flag": "../images/flags/lt-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-LU",
+    "default": false,
+    "available": true,
+    "country": "Luxembourg",
+    "flag": "../images/flags/lu-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-LV",
+    "default": false,
+    "available": true,
+    "country": "Latvia",
+    "flag": "../images/flags/lv-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-MT",
+    "default": false,
+    "available": true,
+    "country": "Malta",
+    "flag": "../images/flags/mt-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-MX",
+    "default": false,
+    "available": true,
+    "country": "Mexico",
+    "flag": "../images/flags/mx-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-MY",
+    "default": false,
+    "available": true,
+    "country": "Malaysia",
+    "flag": "../images/flags/my-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-NG",
+    "default": false,
+    "available": false,
+    "country": "Nigeria",
+    "flag": "../images/flags/ng-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Coming soon to Nigeria"
+  },
+  {
+    "locale": "en-NL",
+    "default": false,
+    "available": true,
+    "country": "Netherlands",
+    "flag": "../images/flags/nl-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-NO",
+    "default": false,
+    "available": true,
+    "country": "Norway",
+    "flag": "../images/flags/no-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-NZ",
+    "default": false,
+    "available": true,
+    "country": "New Zealand",
+    "flag": "../images/flags/nz-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-OM",
+    "default": false,
+    "available": false,
+    "country": "Oman",
+    "flag": "../images/flags/om-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Coming soon to Oman"
+  },
+  {
+    "locale": "en-PK",
+    "default": false,
+    "available": false,
+    "country": "Pakistan",
+    "flag": "../images/flags/pk-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Coming soon to Pakistan"
+  },
+  {
+    "locale": "en-PL",
+    "default": false,
+    "available": true,
+    "country": "Poland",
+    "flag": "../images/flags/pl-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Poland",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-PT",
+    "default": false,
+    "available": true,
+    "country": "Portugal",
+    "flag": "../images/flags/pt-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-QA",
+    "default": false,
+    "available": false,
+    "country": "Qatar",
+    "flag": "../images/flags/qa-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Coming soon to Qatar"
+  },
+  {
+    "locale": "en-RO",
+    "default": false,
+    "available": true,
+    "country": "Romania",
+    "flag": "../images/flags/ro-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-SA",
+    "default": false,
+    "available": false,
+    "country": "Saudi Arabia",
+    "flag": "../images/flags/sa-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Coming soon to Saudi Arabia"
+  },
+  {
+    "locale": "en-SE",
+    "default": false,
+    "available": true,
+    "country": "Sweden",
+    "flag": "../images/flags/se-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-SG",
+    "default": false,
+    "available": true,
+    "country": "Singapore",
+    "flag": "../images/flags/sg-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-SI",
+    "default": false,
+    "available": true,
+    "country": "Slovenia",
+    "flag": "../images/flags/si-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-SK",
+    "default": false,
+    "available": true,
+    "country": "Slovakia",
+    "flag": "../images/flags/sk-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Accept card payments anytime, anywhere. Contactless and more!"
+  },
+  {
+    "locale": "en-ZA",
+    "default": false,
+    "available": false,
+    "country": "South Africa",
+    "flag": "../images/flags/za-flag.inline.svg",
+    "dateFormat": "DD/MM/YYYY",
+    "defaultTitle": "Nomod",
+    "defaultDescription": "Coming soon to South Africa"
+  }
+]
