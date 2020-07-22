@@ -70,7 +70,9 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
   const unlocalisedPageUrl = path
     ? `${site.siteMetadata.siteUrl}${unlocalisedPath}`
     : `${site.siteMetadata.siteUrl}`
-
+  const pageUrl = path
+    ? `${site.siteMetadata.siteUrl}${path}`
+    : `${site.siteMetadata.siteUrl}`
   return (
     <Helmet
       htmlAttributes={{
@@ -100,9 +102,8 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
           content: `business.business`,
         },
         {
-          name: 'url',
           property: `og:url`,
-          content: unlocalisedPageUrl,
+          content: pageUrl,
         },
         {
           property: `og:image`,
