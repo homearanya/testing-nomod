@@ -54,8 +54,6 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
     path,
     site.siteMetadata.siteUrl,
   )
-  const linkArray =
-    hrefLangTags && hrefLangTags.length > 0 ? hrefLangTags : undefined
 
   const { defaultTitle, defaultDescription } = locales[index]
 
@@ -73,6 +71,7 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
   const pageUrl = path
     ? `${site.siteMetadata.siteUrl}${path}`
     : `${site.siteMetadata.siteUrl}`
+
   return (
     <Helmet
       htmlAttributes={{
@@ -80,6 +79,13 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
       }}
       title={title}
       titleTemplate={`%s | ${siteTitle}`}
+      link={[
+        {
+          rel: 'canonical',
+          href: pageUrl,
+        },
+        ...hrefLangTags,
+      ]}
       meta={[
         {
           name: `description`,
@@ -140,7 +146,6 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
         },
         ...ogLangTags,
       ].concat(meta)}
-      link={linkArray}
     />
   )
 }

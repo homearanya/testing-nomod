@@ -188,13 +188,7 @@ export const buildHreflangs = (
   siteUrl: string,
 ): [
   string,
-  (
-    | React.DetailedHTMLProps<
-        React.LinkHTMLAttributes<HTMLLinkElement>,
-        HTMLLinkElement
-      >[]
-    | undefined
-  ),
+  { rel: string; hreflang: string; href: string }[],
   { property: string; content: string }[],
 ] => {
   const { index, locales: localesArray, siteDefaultLocale } = locales
