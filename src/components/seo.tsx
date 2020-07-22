@@ -64,8 +64,11 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
   const siteTitle = defaultTitle || site.siteMetadata.title
   const metaKeywords = site.siteMetadata.keywords
 
-  const pageUrl = path
-    ? `${site.siteMetadata.siteUrl}${path}`
+  const splittedPath = path.split(`${locales[index].locale}`)
+  const unlocalisedPath = splittedPath[splittedPath.length - 1]
+
+  const unlocalisedPageUrl = path
+    ? `${site.siteMetadata.siteUrl}${unlocalisedPath}`
     : `${site.siteMetadata.siteUrl}`
 
   return (
@@ -99,7 +102,7 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
         {
           name: 'url',
           property: `og:url`,
-          content: pageUrl,
+          content: unlocalisedPageUrl,
         },
         {
           property: `og:image`,
