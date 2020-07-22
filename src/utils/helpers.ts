@@ -35,6 +35,27 @@ export const getSiteDefaultLocale = (locales) => {
   return siteDefaultLocale
 }
 
+export const getLocaleFromPath = (path, defaultLocale, locales) => {
+  let potentialLocale
+  if (path.match(/^\/[a-z]{2}-[a-z]{2}\//)) {
+    potentialLocale = path.split(`/`)[1]
+  }
+
+  if (potentialLocale) {
+    const isLocale =
+      potentialLocale.length === 5 &&
+      locales.findIndex((locale) => locale.locale === potentialLocale) !== -1
+
+    if (isLocale) {
+      return potentialLocale
+    } else {
+      return defaultLocale
+    }
+  } else {
+    return defaultLocale
+  }
+}
+
 export const buildLocalesArray = (locales, localeBrowser) => {
   // sort alphabetically by country
   const localesArray = locales.map((locale) => {
@@ -213,8 +234,13 @@ export const buildHreflangs = (
     },
   ]
 
-  const language = currentLocale.split('-')[0]
-  const territory = currentLocale.split('-')[1].toUpperCase()
+  const localeFromPath = getLocaleFromPath(
+    path,
+    siteDefaultLocale,
+    localesArray,
+  )
+  const language = localeFromPath.split('-')[0]
+  const territory = localeFromPath.split('-')[1].toUpperCase()
   const ogLangTags = [
     { property: 'og:locale', content: `${language}_${territory}` },
   ]
