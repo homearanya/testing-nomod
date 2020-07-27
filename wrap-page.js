@@ -7,9 +7,9 @@ import { getSiteDefaultLocale, buildLocalesArray } from './src/utils/helpers'
 import locales from './src/i18n/locales.json'
 
 export const wrapRoot = ({ element, ...rest }) => {
-  const siteDefaultLocale = getSiteDefaultLocale(locales)
+  const siteDefaultLocale = getSiteDefaultLocale(locales).toLowerCase()
 
-  let browserDefaultLocale = siteDefaultLocale.locale.toLowerCase()
+  let browserDefaultLocale = siteDefaultLocale
   if (typeof window !== 'undefined') {
     const getCookie = document.cookie.match(
       '(^|;)\\s*nomodLocale\\s*=\\s*([^;]+)',

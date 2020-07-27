@@ -11,7 +11,7 @@ type LocaleIn = {
   defaultTitle: string
   defaultDescription: string
 }
-export type LocaleOut = {
+type LocaleOut = {
   locale: string
   default: boolean
   available: boolean
@@ -26,7 +26,7 @@ export type State = {
   index: number
   locales: LocaleOut[]
   browserDefaultLocale: string
-  siteDefaultLocale: LocaleOut
+  siteDefaultLocale: string
 }
 
 type Action = {
@@ -42,7 +42,7 @@ type LocaleProviderProps = {
   children: React.ReactNode
   indexBrowserDefaultLocale: number
   locales: LocaleIn[]
-  siteDefaultLocale: LocaleOut
+  siteDefaultLocale: string
   browserDefaultLocale: string
 }
 

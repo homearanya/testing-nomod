@@ -78,7 +78,7 @@ const Footer = ({
   const menuLocale = getMenuLocalized(
     menuLocales,
     currentLocale,
-    siteDefaultLocale.locale.toLowerCase(),
+    siteDefaultLocale,
   )
   const menus = menuLocale ? menuLocale.menus : []
 

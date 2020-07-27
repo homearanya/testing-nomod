@@ -43,7 +43,7 @@ const AdditionalMenu = ({ className }: AdditionalMenuProps) => {
   const menuLocale = getMenuLocalized(
     menuLocales,
     siteLocales[index].locale,
-    siteDefaultLocale.locale.toLowerCase(),
+    siteDefaultLocale,
   )
   const menuItems = menuLocale ? menuLocale.menuItems : []
 
