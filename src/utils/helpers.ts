@@ -29,7 +29,30 @@ export const textTruncate = (text: string, num: number): string => {
 }
 
 export const getSiteDefaultLocale = locales => {
-  return locales.find(locale => locale.default)
+  const defaultLocaleIndex = locales.findIndex(locale => locale.default)
+  const siteDefaultLocale =
+    defaultLocaleIndex !== -1 ? locales[defaultLocaleIndex].locale : ''
+  return siteDefaultLocale
+}
+
+export const getLocaleFromPath = (path, locales) => {
+  const siteDefaultLocale = locales.find(locale => locale.default)
+  let potentialLocale
+  if (path.match(/^\/[a-z]{2}-[a-z]{2}\//)) {
+    potentialLocale = path.split(`/`)[1]
+  }
+
+  if (potentialLocale && potentialLocale.length === 5) {
+    const locale = locales.find(locale => locale.locale === potentialLocale)
+
+    if (locale) {
+      return locale
+    } else {
+      return siteDefaultLocale
+    }
+  } else {
+    return siteDefaultLocale
+  }
 }
 
 export const buildLocalesArray = (locales, localeBrowser) => {
@@ -65,6 +88,12 @@ export const buildLocalesArray = (locales, localeBrowser) => {
     defaultLocaleIndex = localeBrowserIndex
   }
 
+  // if (defaultLocaleIndex > 0) {
+  //   const defaultLocale = localesArray[defaultLocaleIndex]
+  //   localesArray.splice(defaultLocaleIndex, 1)
+  //   localesArray.unshift(defaultLocale)
+  // }
+
   return [defaultLocaleIndex, localesArray]
 }
 
@@ -89,11 +118,10 @@ export const localisePath = (
   path,
   currentLocale,
   browserLocale,
-  siteDefaultLocale,
+  defaultLocale,
   locales,
   allPaths,
 ) => {
-  const defaultLocale = siteDefaultLocale.locale.toLowerCase()
   // logic for coming soon countries
   const indexCurrentLocale = locales.findIndex(
     ({ locale }) => locale === currentLocale,
@@ -187,7 +215,7 @@ export const buildHreflangs = (
   // current language (from locale)
   // current path (without locale)
   let currentPath
-  if (currentLocale === siteDefaultLocale.locale.toLowerCase()) {
+  if (currentLocale === siteDefaultLocale) {
     currentPath = path
   } else {
     currentPath = path.slice(6)
@@ -204,7 +232,7 @@ export const buildHreflangs = (
   localesArray.forEach(locale => {
     // full url for each locale
     let fullUrl
-    if (locale.locale === siteDefaultLocale.locale.toLowerCase()) {
+    if (locale.locale === siteDefaultLocale) {
       fullUrl = `${siteUrl}${currentPath}`
     } else {
       fullUrl = `${siteUrl}/${locale.locale}${currentPath}`

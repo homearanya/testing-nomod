@@ -10,7 +10,7 @@ import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
 import { useLocaleState } from '../context/locale-context'
-import { buildHreflangs } from '../utils/helpers'
+import { getLocaleFromPath, buildHreflangs } from '../utils/helpers'
 
 interface StaticQueryData {
   site: {
@@ -47,7 +47,7 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
       }
     `,
   )
-  const { siteDefaultLocale } = useLocaleState()
+  const { locales } = useLocaleState()
 
   const [currentLanguage, hrefLangTags] = buildHreflangs(
     useLocaleState(),
@@ -55,7 +55,7 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
     site.siteMetadata.siteUrl,
   )
 
-  const { defaultTitle, defaultDescription } = siteDefaultLocale
+  const { defaultTitle, defaultDescription } = getLocaleFromPath(path, locales)
 
   const metaDescription =
     description || defaultDescription || site.siteMetadata.description
