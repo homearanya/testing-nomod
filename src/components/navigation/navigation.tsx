@@ -106,7 +106,7 @@ const Navigation = ({
   const menuLocale = getMenuLocalized(
     menuLocales,
     siteLocales[index].locale,
-    siteDefaultLocale,
+    siteDefaultLocale.locale.toLowerCase(),
   )
   const menuItems = menuLocale ? menuLocale.menuItems : []
   return (

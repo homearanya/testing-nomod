@@ -47,15 +47,15 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
       }
     `,
   )
-  const { index, locales } = useLocaleState()
+  const { siteDefaultLocale } = useLocaleState()
 
-  const [currentLanguage, hrefLangTags, ogLangTags] = buildHreflangs(
+  const [currentLanguage, hrefLangTags] = buildHreflangs(
     useLocaleState(),
     path,
     site.siteMetadata.siteUrl,
   )
 
-  const { defaultTitle, defaultDescription } = locales[index]
+  const { defaultTitle, defaultDescription } = siteDefaultLocale
 
   const metaDescription =
     description || defaultDescription || site.siteMetadata.description
@@ -111,34 +111,17 @@ function SEO({ title, description = '', meta = [], path }: SEOProps) {
         },
         {
           name: `twitter:card`,
-          content: `summary_large_image`,
+          content: `summary`,
         },
         {
           name: `twitter:site`,
           content: site.siteMetadata.author,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-        {
-          name: `twitter:image`,
-          content: `${site.siteMetadata.siteUrl}/img/og-image.png`,
-        },
-        {
-          name: `twitter:image:alt`,
-          content: `Nomod`,
         },
         // for apple devices
         {
           name: `viewport`,
           content: `width=device-width, initial-scale=1`,
         },
-        ...ogLangTags,
       ].concat(meta)}
     />
   )

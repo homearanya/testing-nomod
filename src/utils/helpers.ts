@@ -28,37 +28,13 @@ export const textTruncate = (text: string, num: number): string => {
   return result
 }
 
-export const getSiteDefaultLocale = (locales) => {
-  const defaultLocaleIndex = locales.findIndex((locale) => locale.default)
-  const siteDefaultLocale =
-    defaultLocaleIndex !== -1 ? locales[defaultLocaleIndex].locale : ''
-  return siteDefaultLocale
-}
-
-export const getLocaleFromPath = (path, defaultLocale, locales) => {
-  let potentialLocale
-  if (path.match(/^\/[a-z]{2}-[a-z]{2}\//)) {
-    potentialLocale = path.split(`/`)[1]
-  }
-
-  if (potentialLocale) {
-    const isLocale =
-      potentialLocale.length === 5 &&
-      locales.findIndex((locale) => locale.locale === potentialLocale) !== -1
-
-    if (isLocale) {
-      return potentialLocale
-    } else {
-      return defaultLocale
-    }
-  } else {
-    return defaultLocale
-  }
+export const getSiteDefaultLocale = locales => {
+  return locales.find(locale => locale.default)
 }
 
 export const buildLocalesArray = (locales, localeBrowser) => {
   // sort alphabetically by country
-  const localesArray = locales.map((locale) => {
+  const localesArray = locales.map(locale => {
     if (locale.locale) {
       locale.locale = locale.locale.toLowerCase()
     }
@@ -79,7 +55,7 @@ export const buildLocalesArray = (locales, localeBrowser) => {
 
   // Rearrange according to default locale
   const localeBrowserIndex = localeBrowser
-    ? localesArray.findIndex((locale) => {
+    ? localesArray.findIndex(locale => {
         return locale.locale === localeBrowser
       })
     : -1
@@ -88,12 +64,6 @@ export const buildLocalesArray = (locales, localeBrowser) => {
   if (localeBrowserIndex > -1) {
     defaultLocaleIndex = localeBrowserIndex
   }
-
-  // if (defaultLocaleIndex > 0) {
-  //   const defaultLocale = localesArray[defaultLocaleIndex]
-  //   localesArray.splice(defaultLocaleIndex, 1)
-  //   localesArray.unshift(defaultLocale)
-  // }
 
   return [defaultLocaleIndex, localesArray]
 }
@@ -119,10 +89,11 @@ export const localisePath = (
   path,
   currentLocale,
   browserLocale,
-  defaultLocale,
+  siteDefaultLocale,
   locales,
   allPaths,
 ) => {
+  const defaultLocale = siteDefaultLocale.locale.toLowerCase()
   // logic for coming soon countries
   const indexCurrentLocale = locales.findIndex(
     ({ locale }) => locale === currentLocale,
@@ -152,7 +123,7 @@ export const localisePath = (
         return path
       } else {
         const processedPath = path.replace(`/${currentLocale}/`, '/')
-        if (allPaths.findIndex((p) => p === processedPath) !== -1) {
+        if (allPaths.findIndex(p => p === processedPath) !== -1) {
           return `/${currentLocale}/`
         }
       }
@@ -174,7 +145,7 @@ export const localisePath = (
   if (potentialLocale) {
     const isLocale =
       potentialLocale.length === 5 &&
-      locales.findIndex((locale) => locale.locale === potentialLocale) !== -1
+      locales.findIndex(locale => locale.locale === potentialLocale) !== -1
 
     if (isLocale) {
       if (potentialLocale !== currentLocale) {
@@ -207,11 +178,7 @@ export const buildHreflangs = (
   locales: LocalesType,
   path: string,
   siteUrl: string,
-): [
-  string,
-  { rel: string; hreflang: string; href: string }[],
-  { property: string; content: string }[],
-] => {
+): [string, { rel: string; hreflang: string; href: string }[]] => {
   const { index, locales: localesArray, siteDefaultLocale } = locales
 
   // current locale
@@ -220,7 +187,7 @@ export const buildHreflangs = (
   // current language (from locale)
   // current path (without locale)
   let currentPath
-  if (currentLocale === siteDefaultLocale) {
+  if (currentLocale === siteDefaultLocale.locale.toLowerCase()) {
     currentPath = path
   } else {
     currentPath = path.slice(6)
@@ -234,42 +201,26 @@ export const buildHreflangs = (
     },
   ]
 
-  const localeFromPath = getLocaleFromPath(
-    path,
-    siteDefaultLocale,
-    localesArray,
-  )
-  const language = localeFromPath.split('-')[0]
-  const territory = localeFromPath.split('-')[1].toUpperCase()
-  const ogLangTags = [
-    { property: 'og:locale', content: `${language}_${territory}` },
-  ]
-  localesArray.forEach((locale) => {
+  localesArray.forEach(locale => {
     // full url for each locale
     let fullUrl
-    if (locale.locale === siteDefaultLocale) {
+    if (locale.locale === siteDefaultLocale.locale.toLowerCase()) {
       fullUrl = `${siteUrl}${currentPath}`
     } else {
       fullUrl = `${siteUrl}/${locale.locale}${currentPath}`
     }
-    const language = locale.locale.split('-')[0]
-    const territory = locale.locale.split('-')[1].toUpperCase()
 
     hrefLangTags.push({
       rel: 'alternate',
       hreflang: `${locale.locale}`,
       href: `${fullUrl}`,
     })
-    ogLangTags.push({
-      property: 'og:locale:alternate',
-      content: `${language}_${territory}`,
-    })
   })
 
-  return [currentLanguage, hrefLangTags, ogLangTags]
+  return [currentLanguage, hrefLangTags]
 }
 
-export const validateEmail = (email) => {
+export const validateEmail = email => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   return re.test(String(email).toLowerCase())
 }

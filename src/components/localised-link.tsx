@@ -20,7 +20,9 @@ const LocalisedLink = ({
 
   const currentLocale = locales[index].locale
   const pathPrefix =
-    currentLocale === siteDefaultLocale ? '' : `/${currentLocale}`
+    currentLocale === siteDefaultLocale.locale.toLowerCase()
+      ? ''
+      : `/${currentLocale}`
   return (
     <Link to={`${pathPrefix}${to}`} className={className} {...props}>
       {children}
