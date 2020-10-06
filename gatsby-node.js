@@ -32,13 +32,12 @@ const createRedirectsForNonDefaults = (path, createRedirect) => {
     .filter(locale => !locale.default)
     .forEach(locale => {
       const country = locale.locale.split('-')[1]
-      const force = path === '/' ? true : false
       if (locale.available) {
         createRedirect({
           fromPath: path,
           toPath: `/${locale.locale}${path}`,
           isPermanent: false,
-          force,
+          force: true,
           redirectInBrowser: isEnvDevelopment,
           Country: country,
         })
@@ -47,7 +46,7 @@ const createRedirectsForNonDefaults = (path, createRedirect) => {
           fromPath: path,
           toPath: `/${locale.locale}/`,
           isPermanent: false,
-          force,
+          force: true,
           redirectInBrowser: isEnvDevelopment,
           Country: country,
         })
@@ -252,6 +251,7 @@ exports.createPages = async ({ actions, graphql }) => {
           fromPath: `/${locale.locale}/*`,
           toPath: `/${locale.locale}/`,
           statusCode: 302,
+          force: true,
           redirectInBrowser: isEnvDevelopment,
           Country: country,
         })
@@ -264,7 +264,7 @@ exports.createPages = async ({ actions, graphql }) => {
             createRedirect({
               fromPath: `/${locale.locale}/*`,
               toPath: `/${e.default ? '' : `${e.locale}/`}:splat`,
-              isPermanent: false,
+              force: true,
               redirectInBrowser: isEnvDevelopment,
               Country: e.locale.split('-')[1],
             })
@@ -272,7 +272,7 @@ exports.createPages = async ({ actions, graphql }) => {
             createRedirect({
               fromPath: `/${locale.locale}/*`,
               toPath: `/${e.default ? '' : `${e.locale}/`}`,
-              isPermanent: false,
+              force: true,
               redirectInBrowser: isEnvDevelopment,
               Country: e.locale.split('-')[1],
             })
@@ -283,7 +283,7 @@ exports.createPages = async ({ actions, graphql }) => {
   createRedirect({
     fromPath: `/${defaultLocale}/*`,
     toPath: `/:splat`,
-    isPermanent: false,
+    force: true,
     redirectInBrowser: isEnvDevelopment,
     Country: defaultLocale.split('-')[1],
   })
