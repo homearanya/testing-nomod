@@ -247,7 +247,7 @@ exports.createPages = async ({ actions, graphql }) => {
         redirectInBrowser: isEnvDevelopment,
         Country: country,
       })
-      if (locale.available) {
+      if (!locale.available) {
         createRedirect({
           fromPath: `/${locale.locale}/*`,
           toPath: `/${locale.locale}/`,
