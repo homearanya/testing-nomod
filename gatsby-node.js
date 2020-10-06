@@ -192,36 +192,42 @@ exports.createPages = async ({ actions, graphql }) => {
   // *
   // iterate over all the locales on JSON file
   const isEnvDevelopment = process.env.NODE_ENV === 'development'
-  AllLocales.filter(locale => locale !== defaultLocale).forEach(locale => {
-    // Create redirect for default language
-    const country = locale.split('-')[1]
-    console.log('redirect: ', locale, country)
-    if (locale === defaultLocale) {
+  localesArray
+    .map(locale => locale.locale.toLowerCase())
+    .filter(locale => locale !== defaultLocale)
+    .forEach(locale => {
+      // Create redirect for default language
+      const country = locale.split('-')[1]
+      console.log('redirect: ', locale, country)
+      if (locale === defaultLocale) {
+        createRedirect({
+          fromPath: `/${locale}/*`,
+          toPath: '/:splat',
+          isPermanent: false,
+          redirectInBrowser: isEnvDevelopment,
+          Country: country,
+        })
+      }
       createRedirect({
-        fromPath: `/${locale}/*`,
-        toPath: '/:splat',
-        isPermanent: false,
+        fromPath: `/*`,
+        toPath: `/${locale}/404.html`,
+        statusCode: 404,
         redirectInBrowser: isEnvDevelopment,
         Country: country,
       })
-    }
-    createRedirect({
-      fromPath: `/*`,
-      toPath: `/${locale}/404.html`,
-      statusCode: 404,
-      redirectInBrowser: isEnvDevelopment,
-      Country: country,
+      localesArray
+        .map(locale => locale.locale.toLowerCase())
+        .filter(e => e !== locale)
+        .forEach(e => {
+          createRedirect({
+            fromPath: `/${locale}/*`,
+            toPath: `/${e === defaultLocale ? '' : `${e}/`}:splat`,
+            isPermanent: false,
+            redirectInBrowser: isEnvDevelopment,
+            Country: e.split('-')[1],
+          })
+        })
     })
-    AllLocales.filter(e => e !== locale).forEach(e => {
-      createRedirect({
-        fromPath: `/${locale}/*`,
-        toPath: `/${e === defaultLocale ? '' : `${e}/`}:splat`,
-        isPermanent: false,
-        redirectInBrowser: isEnvDevelopment,
-        Country: e.split('-')[1],
-      })
-    })
-  })
   // fallback - default site
   createRedirect({
     fromPath: `/${defaultLocale}/*`,
