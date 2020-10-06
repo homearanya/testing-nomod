@@ -50,7 +50,7 @@ const ComingSoonPage = ({
   const handlerSetFocus = () => setSetFocus(true)
   const handlerSetUnfocus = () => setSetFocus(false)
 
-  const handlerShowSignUp = (element) => {
+  const handlerShowSignUp = element => {
     let topOffset = 900
     if (element) {
       topOffset = element.getBoundingClientRect().top

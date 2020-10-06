@@ -124,7 +124,7 @@ const Footer = ({
               )}
               <StyledAnchor
                 className="twitter-icon"
-                href="https://www.twitter.com/NomodHQ/"
+                href="https://www.twitter.com/Nomod/"
                 target="_blank"
                 rel="noopener noreferrer"
               >

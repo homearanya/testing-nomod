@@ -38,9 +38,8 @@ const LocaleSwitcher = ({
   const isMobile = useMedia({ maxWidth: $breakpoints.sm * 16 - 0.001 })
   const [open, setOpen] = useState(false)
 
-  const localeState = useLocaleState()
+  const { index, locales } = useLocaleState()
 
-  const { index, locales } = localeState
   const extendedLocales = locales.map((locale, i) => ({
     ...locale,
     originalIndex: i,
@@ -58,9 +57,6 @@ const LocaleSwitcher = ({
   useEffect(() => {
     setClient(true)
   }, [])
-
-  // if (!isClient) return null
-  //
 
   let transitionStyles = {
     entering: { opacity: 1, transform: 'scale(1)' },
@@ -81,28 +77,26 @@ const LocaleSwitcher = ({
   return (
     <LocaleSwitcherWrapper
       className="locale-switcher-wrapper"
-      key={key}
       ref={ref}
       {...props}
     >
-      {isClient ? (
-        <SelectedLocale
-          comingSoon={comingSoon}
-          onClick={() => {
-            if (open) {
-              setOpen(false)
-            } else {
-              setOpen(true)
-            }
-          }}
-        >
-          <LocaleItem selected comingSoon={comingSoon}>
-            <Flag src={flag.publicURL} alt={country} />
-            <LocaleCountry selectedCountry>{country}</LocaleCountry>
-          </LocaleItem>
-          <StyledArrowDown active={open} />
-        </SelectedLocale>
-      ) : null}
+      <SelectedLocale
+        comingSoon={comingSoon}
+        onClick={() => {
+          if (open) {
+            setOpen(false)
+          } else {
+            setOpen(true)
+          }
+        }}
+      >
+        <LocaleItem selected comingSoon={comingSoon}>
+          <Flag key={key} src={flag.publicURL} alt={country} />
+          <LocaleCountry selectedCountry>{country}</LocaleCountry>
+        </LocaleItem>
+        <StyledArrowDown active={open} />
+      </SelectedLocale>
+
       <Transition in={open} timeout={duration}>
         {(state: 'entering' | 'entered' | 'exiting' | 'exited') => (
           <ListsWrapper

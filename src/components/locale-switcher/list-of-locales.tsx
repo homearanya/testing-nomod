@@ -61,7 +61,7 @@ const ListOfLocales = ({
                     index: originalIndex,
                   },
                 })
-                setCookie('nomodLocale', locale.locale, {
+                setCookie('nf_country', locale.locale.split('-')[1], {
                   path: '/',
                   expires: addDays(new Date(), 180),
                 })

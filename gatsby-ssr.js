@@ -1,8 +1,7 @@
-import { wrapRoot } from './wrap-page'
-import React from 'react'
 import { Helmet } from 'react-helmet'
 
-export const wrapRootElement = wrapRoot
+export { wrapRootElement } from './wrap-root-element'
+export { wrapPageElement } from './wrap-page-element'
 
 export const onRenderBody = (
   { setHeadComponents, setHtmlAttributes, setBodyAttributes },

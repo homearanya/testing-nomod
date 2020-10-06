@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import { graphql, useStaticQuery } from 'gatsby'
 
@@ -54,12 +54,15 @@ const Layout = ({
     }
   `)
 
-  const allPaths = allSitePageEdges.map(({ node: { path } }) => path)
-  // const allPaths = []
+  const allPaths = useMemo(
+    () => allSitePageEdges.map(({ node: { path } }) => path),
+    [allSitePageEdges],
+  )
 
   const {
     state: { isSafari },
   } = useContext(DeviceContext)
+
   const baseTheme: DefaultTheme = {
     awesomegrid: {
       mediaQuery: 'only screen',
@@ -106,29 +109,20 @@ const Layout = ({
     },
   }
   const { path, navigate } = pageProps
-  const {
-    index,
-    locales,
-    browserDefaultLocale,
-    siteDefaultLocale,
-  } = useLocaleState()
+
+  const { index, locales, siteDefaultLocale } = useLocaleState()
 
   const localisedPath =
     locales && locales.length > 0
       ? localisePath(
           path,
           locales[index].locale,
-          browserDefaultLocale,
           siteDefaultLocale,
           locales,
           allPaths,
         )
       : ''
 
-  const [hasMounted, setHasMounted] = useState(false)
-  useEffect(() => {
-    setHasMounted(true)
-  }, [])
   useEffect(() => {
     if (localisedPath !== path) {
       navigate(localisedPath, { replace: true })
@@ -139,28 +133,21 @@ const Layout = ({
     <>
       <GlobalStyles />
       <ThemeProvider theme={baseTheme}>
-        <div
-          style={{
-            opacity:
-              hasMounted && localisedPath && localisedPath === path ? 1 : 0,
-          }}
-        >
-          <Navigation
-            className={className}
-            comingSoon={comingSoon}
-            showSignUp={showSignUp}
-            handlerSetFocus={handlerSetFocus}
-          />
-          <Main className={className} role="main">
-            {children}
-          </Main>
-          <Footer
-            className={className}
-            noFooterTop={noFooterTop}
-            comingSoon={comingSoon}
-          />
-          <CookieConsentModal />
-        </div>
+        <Navigation
+          className={className}
+          comingSoon={comingSoon}
+          showSignUp={showSignUp}
+          handlerSetFocus={handlerSetFocus}
+        />
+        <Main className={className} role="main">
+          {children}
+        </Main>
+        <Footer
+          className={className}
+          noFooterTop={noFooterTop}
+          comingSoon={comingSoon}
+        />
+        <CookieConsentModal />
         {/* <ScrollUp /> */}
       </ThemeProvider>
     </>

@@ -26,7 +26,7 @@ const MessageArea = ({
   failedSubmit = false,
 }: MessageAreaProps) => {
   const message = submitted
-    ? 'Thank you very much! We\'ll let you know when!<a href="https://twitter.com/intent/follow?screen_name=NomodHQ" target="_blank" rel="noopener noreferrer">Follow our progress on Twitter</a>'
+    ? 'Thank you very much! We\'ll let you know when!<a href="https://twitter.com/intent/follow?screen_name=Nomod" target="_blank" rel="noopener noreferrer">Follow our progress on Twitter</a>'
     : failedSubmit
     ? 'Uh oh, something went wrong, please try again!'
     : ''

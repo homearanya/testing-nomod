@@ -25,3 +25,14 @@ interface ButtonData {
 type TextBlockAnimation = 'trail' | 'springs' | undefined
 
 type ObserverRef = (node?: Element | null | undefined) => void
+
+type Locale = {
+  locale: string
+  default: boolean
+  available: boolean
+  country: string
+  flag: { publicURL: string }
+  dateFormat: string
+  defaultTitle: string
+  defaultDescription: string
+}

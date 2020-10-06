@@ -1,36 +1,14 @@
-import React, { createContext, useReducer, useMemo } from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
-
-type LocaleIn = {
-  locale: string
-  default: boolean
-  available: boolean
-  country: string
-  flag: string | { publicURL: string }
-  dateFormat: string
-  defaultTitle: string
-  defaultDescription: string
-}
-type LocaleOut = {
-  locale: string
-  default: boolean
-  available: boolean
-  country: string
-  flag: { publicURL: string }
-  dateFormat: string
-  defaultTitle: string
-  defaultDescription: string
-}
+import React, { createContext, useReducer } from 'react'
 
 export type State = {
   index: number
-  locales: LocaleOut[]
+  locales: Locale[]
   browserDefaultLocale: string
   siteDefaultLocale: string
 }
 
 type Action = {
-  type: 'select'
+  type: 'select' | 'set'
   payload: {
     index: number
   }
@@ -41,16 +19,21 @@ type Dispatch = (action: Action) => void
 type LocaleProviderProps = {
   children: React.ReactNode
   indexBrowserDefaultLocale: number
-  locales: LocaleIn[]
+  locales: Locale[]
   siteDefaultLocale: string
   browserDefaultLocale: string
 }
 
-const reducer = (state: { index: number }, action: Action) => {
+const reducer = (
+  state: { index: number; changedByUser: boolean; loaded: boolean },
+  action: Action,
+) => {
   const { type, payload } = action
 
   switch (type) {
     case 'select':
+      return { index: payload.index }
+    case 'set':
       return { index: payload.index }
     default:
       return state
@@ -61,63 +44,13 @@ const LocaleStateContext = createContext<State | undefined>(undefined)
 
 const LocaleDispatchContext = createContext<Dispatch | undefined>(undefined)
 
-interface LocaleQueryData {
-  readonly allLocalesJson: {
-    edges: {
-      node: LocaleOut
-    }[]
-  }
-}
-
 const LocaleProvider = ({
   children,
   indexBrowserDefaultLocale,
-  locales: localesIn,
+  locales,
   siteDefaultLocale,
   browserDefaultLocale,
 }: LocaleProviderProps) => {
-  const {
-    allLocalesJson: { edges },
-  }: LocaleQueryData = useStaticQuery(graphql`
-    query LocaleQuery {
-      allLocalesJson {
-        edges {
-          node {
-            default
-            available
-            locale
-            country
-            flag {
-              publicURL
-            }
-            dateFormat
-            defaultTitle
-            defaultDescription
-          }
-        }
-      }
-    }
-  `)
-
-  const locales = useMemo(() => {
-    localesIn.forEach(locale => {
-      const nodeFound: { node: LocaleOut } | undefined = edges.find(
-        ({ node }) => {
-          return node.locale.toLowerCase() === locale.locale
-        },
-      )
-      if (nodeFound) {
-        const { node } = nodeFound
-        if (node && node.flag && node.flag.publicURL) {
-          locale.flag = { publicURL: node.flag.publicURL }
-        }
-      } else {
-        locale.flag = { publicURL: '' }
-      }
-    })
-    return localesIn
-  }, [localesIn])
-
   const [{ index }, dispatch] = useReducer(reducer, {
     index: indexBrowserDefaultLocale,
   })
@@ -126,7 +59,7 @@ const LocaleProvider = ({
     <LocaleStateContext.Provider
       value={{
         index,
-        locales: locales as LocaleOut[],
+        locales,
         siteDefaultLocale,
         browserDefaultLocale,
       }}

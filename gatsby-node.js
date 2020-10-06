@@ -22,7 +22,7 @@ const defaultLocaleNodes = {}
 const nonDefaultLocalesNodes = {}
 
 exports.createPages = async ({ actions, graphql }) => {
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
   // create site's pages
   try {
     const { errors, data } = await graphql(`
@@ -185,6 +185,58 @@ exports.createPages = async ({ actions, graphql }) => {
         id: id404,
       },
       matchPath: `/${locale}/*`,
+    })
+  })
+  // *
+  // Create redirects for _redirects file (Netlify)
+  // *
+  // iterate over all the locales on JSON file
+  const isEnvDevelopment = process.env.NODE_ENV === 'development'
+  AllLocales.filter(locale => locale !== defaultLocale).forEach(locale => {
+    // Create redirect for default language
+    const country = locale.split('-')[1]
+    console.log('redirect: ', locale, country)
+    if (locale === defaultLocale) {
+      createRedirect({
+        fromPath: `/${locale}/*`,
+        toPath: '/:splat',
+        isPermanent: false,
+        redirectInBrowser: isEnvDevelopment,
+        Country: country,
+      })
+    }
+    createRedirect({
+      fromPath: `/*`,
+      toPath: `/${locale}/404.html`,
+      statusCode: 404,
+      redirectInBrowser: isEnvDevelopment,
+      Country: country,
+    })
+    AllLocales.filter(e => e !== locale).forEach(e => {
+      createRedirect({
+        fromPath: `/${locale}/*`,
+        toPath: `/${e === defaultLocale ? '' : `${e}/`}:splat`,
+        isPermanent: false,
+        redirectInBrowser: isEnvDevelopment,
+        Country: e.split('-')[1],
+      })
+    })
+  })
+  // fallback - default site
+  createRedirect({
+    fromPath: `/${defaultLocale}/*`,
+    toPath: `/:splat`,
+    isPermanent: false,
+    redirectInBrowser: isEnvDevelopment,
+    Country: defaultLocale.split('-')[1],
+  })
+  AllLocales.filter(locale => locale !== defaultLocale).forEach(locale => {
+    createRedirect({
+      fromPath: `/*`,
+      toPath: `/${locale}/:splat`,
+      isPermanent: false,
+      redirectInBrowser: isEnvDevelopment,
+      Country: locale.split('-')[1],
     })
   })
 }

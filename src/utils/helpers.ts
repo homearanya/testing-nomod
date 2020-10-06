@@ -27,32 +27,34 @@ export const textTruncate = (text: string, num: number): string => {
   }
   return result
 }
-
-export const getSiteDefaultLocale = locales => {
+export const getSiteDefaultLocale: (locales: Locale[]) => Locale = locales => {
   const defaultLocaleIndex = locales.findIndex(locale => locale.default)
   const siteDefaultLocale =
-    defaultLocaleIndex !== -1 ? locales[defaultLocaleIndex].locale : ''
+    defaultLocaleIndex !== -1 ? locales[defaultLocaleIndex] : locales[0]
   return siteDefaultLocale
 }
 
+export const checkLocale: (
+  localeIn: string,
+  locales: Locale[],
+) => [Locale, number] = (localeIn, locales) => {
+  let selectedLocale = locales.find(locale => locale.locale === localeIn)
+  if (!selectedLocale) {
+    selectedLocale = getSiteDefaultLocale(locales)
+  }
+  const selectedLocaleIndex = locales.findIndex(
+    locale => locale.locale === (selectedLocale as Locale).locale,
+  )
+  return [selectedLocale, selectedLocaleIndex]
+}
+
 export const getLocaleFromPath = (path, locales) => {
-  const siteDefaultLocale = locales.find(locale => locale.default)
   let potentialLocale
   if (path.match(/^\/[a-z]{2}-[a-z]{2}\//)) {
     potentialLocale = path.split(`/`)[1]
   }
 
-  if (potentialLocale && potentialLocale.length === 5) {
-    const locale = locales.find(locale => locale.locale === potentialLocale)
-
-    if (locale) {
-      return locale
-    } else {
-      return siteDefaultLocale
-    }
-  } else {
-    return siteDefaultLocale
-  }
+  return checkLocale(potentialLocale, locales)[0]
 }
 
 export const buildLocalesArray = (locales, localeBrowser) => {
@@ -117,7 +119,6 @@ export const getMenuLocalized = (menuLocales, currentLocale, defaultLocale) => {
 export const localisePath = (
   path,
   currentLocale,
-  browserLocale,
   defaultLocale,
   locales,
   allPaths,

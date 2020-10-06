@@ -1,3 +1,2 @@
-import { wrapRoot } from './wrap-page'
-
-export const wrapRootElement = wrapRoot
+export { wrapRootElement } from './wrap-root-element'
+export { wrapPageElement } from './wrap-page-element'
