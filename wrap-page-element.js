@@ -7,12 +7,14 @@ import useFetchBrowserLocale from './src/utils/hooks/useFetchBrowserLocale'
 import locales from './src/i18n/locales.json'
 
 const WrapPageElementWrapper = ({ children, props }) => {
+  const { path } = props
   const siteDefaultLocale = getSiteDefaultLocale(locales).locale.toLowerCase()
   const [
     browserDefaultLocale,
     indexBrowserDefaultLocale,
     localesArray,
-  ] = useFetchBrowserLocale(siteDefaultLocale)
+  ] = useFetchBrowserLocale(siteDefaultLocale, path)
+  console.log('WrapPageElementWrapper: ', props.path)
 
   return (
     <LocaleProvider

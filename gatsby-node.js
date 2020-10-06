@@ -198,7 +198,6 @@ exports.createPages = async ({ actions, graphql }) => {
     .forEach(locale => {
       // Create redirect for default language
       const country = locale.split('-')[1]
-      console.log('redirect: ', locale, country)
       if (locale === defaultLocale) {
         createRedirect({
           fromPath: `/${locale}/*`,
@@ -236,15 +235,18 @@ exports.createPages = async ({ actions, graphql }) => {
     redirectInBrowser: isEnvDevelopment,
     Country: defaultLocale.split('-')[1],
   })
-  AllLocales.filter(locale => locale !== defaultLocale).forEach(locale => {
-    createRedirect({
-      fromPath: `/*`,
-      toPath: `/${locale}/:splat`,
-      isPermanent: false,
-      redirectInBrowser: isEnvDevelopment,
-      Country: locale.split('-')[1],
+  localesArray
+    .map(locale => locale.locale.toLowerCase())
+    .filter(locale => locale !== defaultLocale)
+    .forEach(locale => {
+      createRedirect({
+        fromPath: `/*`,
+        toPath: `/${locale}/:splat`,
+        isPermanent: false,
+        redirectInBrowser: isEnvDevelopment,
+        Country: locale.split('-')[1],
+      })
     })
-  })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {

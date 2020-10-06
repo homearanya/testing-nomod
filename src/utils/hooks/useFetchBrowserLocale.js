@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 
-import { buildLocalesArray, localisePath } from '../helpers'
+import { buildLocalesArray, getLocaleFromPath } from '../helpers'
 
-const useFetchBrowserLocale = siteDefaultLocale => {
+const useFetchBrowserLocale = (siteDefaultLocale, path) => {
   const { allLocalesJson } = useStaticQuery(graphql`
     query LocaleQuery {
       allLocalesJson {
@@ -43,9 +43,9 @@ const useFetchBrowserLocale = siteDefaultLocale => {
       )
       if (getCookie) {
         const locale = `en-${getCookie.pop()}`
-        return locale
+        return locale.toLowerCase()
       } else {
-        return siteDefaultLocale
+        return getLocaleFromPath(path, locales).locale
       }
     }
   }, [siteDefaultLocale])
