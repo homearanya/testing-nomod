@@ -197,7 +197,7 @@ exports.createPages = async ({ actions, graphql }) => {
     .filter(locale => locale !== defaultLocale)
     .forEach(locale => {
       // Create redirect for default language
-      const country = locale.split('-')[1]
+      const country = locale.split('-')[1].toUpperCase()
       if (locale === defaultLocale) {
         createRedirect({
           fromPath: `/${locale}/*`,
@@ -223,7 +223,7 @@ exports.createPages = async ({ actions, graphql }) => {
             toPath: `/${e === defaultLocale ? '' : `${e}/`}:splat`,
             isPermanent: false,
             redirectInBrowser: isEnvDevelopment,
-            Country: e.split('-')[1],
+            Country: e.split('-')[1].toUpperCase(),
           })
         })
     })
@@ -233,7 +233,7 @@ exports.createPages = async ({ actions, graphql }) => {
     toPath: `/:splat`,
     isPermanent: false,
     redirectInBrowser: isEnvDevelopment,
-    Country: defaultLocale.split('-')[1],
+    Country: defaultLocale.split('-')[1].toUpperCase(),
   })
   localesArray
     .map(locale => locale.locale.toLowerCase())
@@ -244,7 +244,7 @@ exports.createPages = async ({ actions, graphql }) => {
         toPath: `/${locale}/:splat`,
         isPermanent: false,
         redirectInBrowser: isEnvDevelopment,
-        Country: locale.split('-')[1],
+        Country: locale.split('-')[1].toUpperCase(),
       })
     })
 }
