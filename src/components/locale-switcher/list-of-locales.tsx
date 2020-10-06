@@ -61,14 +61,10 @@ const ListOfLocales = ({
                     index: originalIndex,
                   },
                 })
-                setCookie(
-                  'nf_country',
-                  locale.locale.split('-')[1].toUpperCase(),
-                  {
-                    path: '/',
-                    expires: addDays(new Date(), 180),
-                  },
-                )
+                setCookie('nf_country', locale.locale.split('-')[1], {
+                  path: '/',
+                  expires: addDays(new Date(), 180),
+                })
               }
               setOpen(false)
             }}

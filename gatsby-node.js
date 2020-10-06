@@ -2,24 +2,58 @@ const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
 const localesArray = require('./src/i18n/locales.json')
 
-const AllLocales = localesArray
+const localeArrayLowerCase = localesArray.map(locale => {
+  locale.locale = locale.locale.toLowerCase()
+  return locale
+})
+
+const AllLocales = localeArrayLowerCase
   .filter(locale => locale.available)
-  .map(localeObject => localeObject.locale.toLowerCase())
+  .map(localeObject => localeObject.locale)
 
-const defaultLocale = localesArray
-  .find(locale => locale.default && locale.available)
-  .locale.toLowerCase()
+const defaultLocale = localeArrayLowerCase.find(
+  locale => locale.default && locale.available,
+).locale
 
-const nonDefaultlocales = localesArray
+const nonDefaultlocales = localeArrayLowerCase
   .filter(locale => !locale.default && locale.available)
-  .map(locale => locale.locale.toLowerCase())
+  .map(locale => locale.locale)
 
-const comingSoonLocales = localesArray
+const comingSoonLocales = localeArrayLowerCase
   .filter(locale => !locale.available)
-  .map(locale => locale.locale.toLowerCase())
+  .map(locale => locale.locale)
 
 const defaultLocaleNodes = {}
 const nonDefaultLocalesNodes = {}
+const isEnvDevelopment = process.env.NODE_ENV === 'development'
+
+const createRedirectsForNonDefaults = (path, createRedirect) => {
+  localeArrayLowerCase
+    .filter(locale => !locale.default)
+    .forEach(locale => {
+      const country = locale.locale.split('-')[1]
+      const force = path === '/' ? true : false
+      if (locale.available) {
+        createRedirect({
+          fromPath: path,
+          toPath: `/${locale.locale}${path}`,
+          isPermanent: false,
+          force,
+          redirectInBrowser: isEnvDevelopment,
+          Country: country,
+        })
+      } else {
+        createRedirect({
+          fromPath: path,
+          toPath: `/${locale.locale}/`,
+          isPermanent: false,
+          force,
+          redirectInBrowser: isEnvDevelopment,
+          Country: country,
+        })
+      }
+    })
+}
 
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage, createRedirect } = actions
@@ -97,9 +131,13 @@ exports.createPages = async ({ actions, graphql }) => {
           // additional data can be passed via context
           context: {
             id,
+            locale,
           },
           matchPath: matchPath,
         })
+        if (locale === defaultLocale) {
+          createRedirectsForNonDefaults(relativeSlug, createRedirect)
+        }
       })
     })
 
@@ -107,6 +145,7 @@ exports.createPages = async ({ actions, graphql }) => {
     // don't exist on default locales folder
     Object.keys(nonDefaultLocalesNodes).forEach(slug => {
       if (!nonDefaultLocalesNodes[slug].pageCreated) {
+        const locale = slug.split('/')[1]
         const node = nonDefaultLocalesNodes[slug].node
         const id = node.id
         createPage({
@@ -117,10 +156,10 @@ exports.createPages = async ({ actions, graphql }) => {
           // additional data can be passed via context
           context: {
             id,
+            locale,
           },
         })
         // create page for default locale
-        const locale = slug.split('/')[1]
         const relativeSlug =
           '/' +
           slug
@@ -135,8 +174,10 @@ exports.createPages = async ({ actions, graphql }) => {
           // additional data can be passed via context
           context: {
             id,
+            locale: defaultLocale,
           },
         })
+        createRedirectsForNonDefaults(relativeSlug, createRedirect)
         // create page for the other non default locale where
         // page is not created
         nonDefaultlocales
@@ -152,6 +193,7 @@ exports.createPages = async ({ actions, graphql }) => {
                 // additional data can be passed via context
                 context: {
                   id,
+                  locale: nonDefaultlocale,
                 },
               })
             }
@@ -171,6 +213,7 @@ exports.createPages = async ({ actions, graphql }) => {
       // additional data can be passed via context
       context: {
         slug,
+        locale,
       },
     })
     // create 404 page
@@ -183,6 +226,7 @@ exports.createPages = async ({ actions, graphql }) => {
       // additional data can be passed via context
       context: {
         id: id404,
+        locale,
       },
       matchPath: `/${locale}/*`,
     })
@@ -191,40 +235,48 @@ exports.createPages = async ({ actions, graphql }) => {
   // Create redirects for _redirects file (Netlify)
   // *
   // iterate over all the locales on JSON file
-  const isEnvDevelopment = process.env.NODE_ENV === 'development'
-  localesArray
-    .map(locale => locale.locale.toLowerCase())
-    .filter(locale => locale !== defaultLocale)
+  localeArrayLowerCase
+    .filter(locale => !locale.default)
     .forEach(locale => {
       // Create redirect for default language
-      const country = locale.split('-')[1].toUpperCase()
-      if (locale === defaultLocale) {
-        createRedirect({
-          fromPath: `/${locale}/*`,
-          toPath: '/:splat',
-          isPermanent: false,
-          redirectInBrowser: isEnvDevelopment,
-          Country: country,
-        })
-      }
+      const country = locale.locale.split('-')[1]
       createRedirect({
         fromPath: `/*`,
-        toPath: `/${locale}/404.html`,
+        toPath: `/${locale.locale}/404.html`,
         statusCode: 404,
         redirectInBrowser: isEnvDevelopment,
         Country: country,
       })
-      localesArray
-        .map(locale => locale.locale.toLowerCase())
-        .filter(e => e !== locale)
+      if (locale.available) {
+        createRedirect({
+          fromPath: `/${locale.locale}/*`,
+          toPath: `/${locale.locale}/`,
+          statusCode: 302,
+          redirectInBrowser: isEnvDevelopment,
+          Country: country,
+        })
+      }
+
+      localeArrayLowerCase
+        .filter(e => e.locale !== locale.locale)
         .forEach(e => {
-          createRedirect({
-            fromPath: `/${locale}/*`,
-            toPath: `/${e === defaultLocale ? '' : `${e}/`}:splat`,
-            isPermanent: false,
-            redirectInBrowser: isEnvDevelopment,
-            Country: e.split('-')[1].toUpperCase(),
-          })
+          if (e.available) {
+            createRedirect({
+              fromPath: `/${locale.locale}/*`,
+              toPath: `/${e.default ? '' : `${e.locale}/`}:splat`,
+              isPermanent: false,
+              redirectInBrowser: isEnvDevelopment,
+              Country: e.locale.split('-')[1],
+            })
+          } else {
+            createRedirect({
+              fromPath: `/${locale.locale}/*`,
+              toPath: `/${e.default ? '' : `${e.locale}/`}`,
+              isPermanent: false,
+              redirectInBrowser: isEnvDevelopment,
+              Country: e.locale.split('-')[1],
+            })
+          }
         })
     })
   // fallback - default site
@@ -233,20 +285,8 @@ exports.createPages = async ({ actions, graphql }) => {
     toPath: `/:splat`,
     isPermanent: false,
     redirectInBrowser: isEnvDevelopment,
-    Country: defaultLocale.split('-')[1].toUpperCase(),
+    Country: defaultLocale.split('-')[1],
   })
-  localesArray
-    .map(locale => locale.locale.toLowerCase())
-    .filter(locale => locale !== defaultLocale)
-    .forEach(locale => {
-      createRedirect({
-        fromPath: `/*`,
-        toPath: `/${locale}/:splat`,
-        isPermanent: false,
-        redirectInBrowser: isEnvDevelopment,
-        Country: locale.split('-')[1].toUpperCase(),
-      })
-    })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {

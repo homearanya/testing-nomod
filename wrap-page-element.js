@@ -14,7 +14,6 @@ const WrapPageElementWrapper = ({ children, props }) => {
     indexBrowserDefaultLocale,
     localesArray,
   ] = useFetchBrowserLocale(siteDefaultLocale, path)
-  console.log('WrapPageElementWrapper: ', props.path)
 
   return (
     <LocaleProvider
