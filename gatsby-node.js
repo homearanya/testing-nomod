@@ -28,6 +28,8 @@ const nonDefaultLocalesNodes = {}
 const isEnvDevelopment = process.env.NODE_ENV === 'development'
 
 const createRedirectsForNonDefaults = (path, createRedirect) => {
+  // From default paths create redirects for non-default locales
+  if (path === '/404/') return
   localeArrayLowerCase
     .filter(locale => !locale.default)
     .forEach(locale => {
@@ -41,6 +43,18 @@ const createRedirectsForNonDefaults = (path, createRedirect) => {
           redirectInBrowser: isEnvDevelopment,
           Country: country,
         })
+        localeArrayLowerCase
+          .filter(e => !e.default && e.available && e.locale !== locale.locale)
+          .forEach(e => {
+            createRedirect({
+              fromPath: `/${locale.locale}${path}`,
+              toPath: `/${e.locale}${path}`,
+              isPermanent: false,
+              force: true,
+              redirectInBrowser: isEnvDevelopment,
+              Country: e.locale.split('-')[1],
+            })
+          })
       } else {
         createRedirect({
           fromPath: path,
@@ -261,13 +275,13 @@ exports.createPages = async ({ actions, graphql }) => {
         .filter(e => e.locale !== locale.locale)
         .forEach(e => {
           if (e.available) {
-            createRedirect({
-              fromPath: `/${locale.locale}/*`,
-              toPath: `/${e.default ? '' : `${e.locale}/`}:splat`,
-              force: true,
-              redirectInBrowser: isEnvDevelopment,
-              Country: e.locale.split('-')[1],
-            })
+            // createRedirect({
+            //   fromPath: `/${locale.locale}/*`,
+            //   toPath: `/${e.default ? '' : `${e.locale}/`}:splat`,
+            //   force: true,
+            //   redirectInBrowser: isEnvDevelopment,
+            //   Country: e.locale.split('-')[1],
+            // })
           } else {
             createRedirect({
               fromPath: `/${locale.locale}/*`,

@@ -123,7 +123,6 @@ const Layout = ({
         )
       : ''
 
-  console.log('layout: ', index, path, localisedPath)
   useEffect(() => {
     if (localisedPath !== path) {
       navigate(localisedPath, { replace: true })

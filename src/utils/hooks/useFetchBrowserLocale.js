@@ -45,10 +45,6 @@ const useFetchBrowserLocale = (siteDefaultLocale, path) => {
         const locale = `en-${getCookie.pop()}`
         return locale.toLowerCase()
       } else {
-        console.log(
-          getLocaleFromPath(path, locales),
-          getLocaleFromPath(path, locales).locale,
-        )
         return getLocaleFromPath(path, locales).locale
       }
     }
